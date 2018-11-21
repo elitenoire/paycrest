@@ -1,0 +1,43 @@
+{
+  "name": "iris",
+  "version": "1.0.0",
+  "description": "messaging for the modern era",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "server": "nodemon server/server.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elitenoire/DevFest-Abuja-Code-Challenge-2018.git"
+  },
+  "author": "elitenoire",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elitenoire/DevFest-Abuja-Code-Challenge-2018/issues"
+  },
+  "homepage": "https://github.com/elitenoire/DevFest-Abuja-Code-Challenge-2018#readme",
+  "dependencies": {
+    "africastalking": "^0.4.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "handlebars": "^4.0.12",
+    "html-to-text": "^4.0.0",
+    "jsonwebtoken": "^8.4.0",
+    "jwt-simple": "^0.5.5",
+    "mjml": "^4.2.0",
+    "mongoose": "^5.3.13",
+    "nodemailer": "^4.7.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0"
+  }
+}
