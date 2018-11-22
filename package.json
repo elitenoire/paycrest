@@ -29,13 +29,17 @@
     "handlebars": "^4.0.12",
     "html-to-text": "^4.0.0",
     "jsonwebtoken": "^8.4.0",
+    "jsotp": "^1.0.4",
     "jwt-simple": "^0.5.5",
     "mjml": "^4.2.0",
     "mongoose": "^5.3.13",
+    "naija-phone-number": "^1.0.2",
     "nodemailer": "^4.7.0",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "uniqid": "^5.0.3",
+    "validator": "^10.9.0"
   },
   "devDependencies": {
     "concurrently": "^4.1.0"

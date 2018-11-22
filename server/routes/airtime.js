@@ -9,7 +9,7 @@ airtimeRouter.post('/send', async (req, res) => {
 
     const airtimeRecipientList = to.split(',')
         .map(number => ({
-            phoneNumber: number.trim(),
+            phoneNumber: '+234' + number.trim().substring(1),
             currencyCode,
             amount: Number(amount)
         }))
@@ -18,7 +18,7 @@ airtimeRouter.post('/send', async (req, res) => {
     const opts = { recipients: airtimeRecipientList}
 
     try {
-        const response = airtime.send(opts)
+        const response = await airtime.send(opts)
         console.log(response)
         res.status(200).json(response)
     }

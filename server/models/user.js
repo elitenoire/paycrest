@@ -1,21 +1,38 @@
 const mongoose = require('mongoose')
-const { Schema } = mongoose
 const bcrypt = require('bcryptjs')
+const isEmail = require('validator/lib/isEmail')
+const naijaNumber = require('naija-phone-number')
+const { Schema } = mongoose
 
 
 const userSchema = new Schema({
-    firstName: String,
-    lastName: String,
+    firstName: { type: String, trim: true},
+    lastName: { type: String, trim: true},
     email: {
         type: String,
         required: true,
         trim: true,
         unique: true,
-        lowercase: true
+        lowercase: true,
+        validate: {
+            validator: isEmail,
+            message: '{VALUE} is not valid',
+            isAsync: false
+        }
     },
     password: String,
-    phone: String,
+    phone: {
+        type: String,
+        required: true,
+        unique: true,
+        validate: {
+            validator: naijaNumber.isValid,
+            message: '{VALUE} is not a valid phone number!'
+        }
+    },
     isVerified: { type: Boolean, default: false},
+    secret: String,
+    requestId: String,
 }, { timestamps: true })
 
 // Encrypt password (salt and hash) pre-save hook

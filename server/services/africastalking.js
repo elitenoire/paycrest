@@ -1,9 +1,11 @@
+const africasTalking = require('africastalking')
 const { AT_API_KEY, AT_USERNAME } = require('../config/keys')
-const AT_CONFIG = {
+
+//Initialize AT
+const AfricasTalking = new africasTalking({
     username: AT_USERNAME,
     apiKey: AT_API_KEY
-}
-const AfricasTalking = require('africastalking')(AT_CONFIG);
+}, {debug: true})
 
 
 module.exports = {
