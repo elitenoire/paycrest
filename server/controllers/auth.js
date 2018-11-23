@@ -1,4 +1,4 @@
-const jwt = require('jwt-simple')
+const jwt = require('jsonwebtoken')
 const naijaNumber = require('naija-phone-number')
 const User = require('../models/user')
 const Token = require('../models/token')
@@ -8,11 +8,11 @@ const { sms } = require('../services/africastalking')
 const jsotp = require('jsotp');
 const uniqid = require('uniqid')
 
-
-
 // utils
 const generateToken = user => {
-    return jwt.encode({sub: user.id, iat: Date.now()}, JWT_SECRET)
+    const payload = {name: user.firstName, sub: user._id}
+    return jwt.sign( payload, SECRET_KEY, { expiresIn : '6h'})
+    // return jwt.encode({sub: user._id, name: user.firstName, iat: Date.now(), exp: Date.now() + (6 * 3600)}, JWT_SECRET)
 }
 const generateOtp = () => { // Random 6 digits
     return Math.floor(100000 + Math.random() * 900000)
