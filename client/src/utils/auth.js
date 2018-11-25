@@ -8,18 +8,27 @@ const client = axios.create({
 const auth = {}
 
 // client-to-server async helpers
-auth.login = async (user) => {
+const postHelper = async (payload, route) => {
+    console.log('Making post api request..')
     try{
-        const response = await client.post('/login', user)
+        console.log('Send to ', route, payload)
+        const response = await client.post(route, payload)
         return { response }
     }
     catch(err){
         if(err.response){
+            console.log('In client', err.response)
             return {error : err.response.data}
         }
-        return {error : {success : 'false' , _error : 'Check network connection or please refresh'}}
+        console.log('In client , err is', err)
+
+        return {error : 'Check network connection or please refresh'}
     }
 }
+auth.login = payload => postHelper(payload,'/login')
+auth.signup = payload => postHelper(payload,'/signup')
+auth.sendOtp = payload => postHelper(payload,'/sendOtp')
+auth.verifyOtp = payload => postHelper(payload,'/verifyOtp')
 
 
 // client-localStorage helpers
@@ -36,7 +45,7 @@ auth.isUserAuthenticated = (key = 'token') => {
 }
 
 // Authenticate user
-auth.authenticateUser = (key = 'token', token) => {
+auth.authenticateUser = (token, key = 'token') => {
     localStorage.setItem(key, token)
 }
 

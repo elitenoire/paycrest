@@ -11,7 +11,7 @@ const uniqid = require('uniqid')
 // utils
 const generateToken = user => {
     const payload = {name: user.firstName, sub: user._id}
-    return jwt.sign( payload, SECRET_KEY, { expiresIn : '6h'})
+    return jwt.sign( payload, JWT_SECRET, { expiresIn : '6h'})
     // return jwt.encode({sub: user._id, name: user.firstName, iat: Date.now(), exp: Date.now() + (6 * 3600)}, JWT_SECRET)
 }
 const generateOtp = () => { // Random 6 digits
@@ -20,13 +20,15 @@ const generateOtp = () => { // Random 6 digits
 
 // Sign-up Controller
 exports.signup = async (req, res, next) => {
-    const { email, password, firstName, lastName } = req.body
+    const { email, password, firstName, lastName, phone } = req.body
     
     // exisiting email throws error, new email creates new user
     try {
-        const oldUser = await User.findOne({ email })
-        if(oldUser) return res.status(422).json({error: 'Email already exists.'})
-        const newUser = await User.create({ email, password, firstName, lastName })
+        const oldUser = await User.findOne({ $or: [ {email}, {phone}] }, 'email phone')
+        if( oldUser && oldUser.email === email) return res.status(422).json({error: 'Email already registered.'})
+        if( oldUser && oldUser.phone === phone) return res.status(422).json({error: 'Phone no already registered.'})
+        //TODO: User had both email and phone 
+        const newUser = await User.create({ email, password, firstName, lastName, phone })
         // send signup verification email
         const BASE_URL = req.protocol + "://" + req.get('host')
         const token = new Token({_userId: newUser._id })
@@ -34,11 +36,18 @@ exports.signup = async (req, res, next) => {
         // on successful email delivery
         return res.status(200).json({
             token: generateToken(newUser),
+            name: newUser.name,
             msg: `Verification email sent to ${newUser.email}`
         })
     }
     catch(err) {
-        return next(err) // res.status(500).send(err)
+        if(err.errors){// Validation errors
+            const { phone, email } = err.errors
+            if(phone) return res.status(500).json({ error: phone.message})
+            if(email) return res.status(500).json({ error: email.message})
+        }
+        // return next(err) 
+        res.status(500).json({ error: 'Unable to sign up. Try again later.'})
     }
 }
 
@@ -47,7 +56,8 @@ exports.login = (req, res) => {
     return res.status(200).json({
         token: generateToken(req.user),
         msg: 'Login success',
-        status: 'ok'
+        status: 'ok',
+        name: req.user.firstName
     })
 }
 

@@ -27,7 +27,7 @@ const userSchema = new Schema({
         unique: true,
         validate: {
             validator: naijaNumber.isValid,
-            message: '{VALUE} is not a valid phone number!'
+            message: '{VALUE} is invalid format'
         }
     },
     isVerified: { type: Boolean, default: false},

@@ -2,8 +2,8 @@ const fs = require('fs')
 const path = require('path')
 const { promisify } = require('util')
 const { compile } = require('handlebars')
-const mjml2html = require('mjml').default
-const nodemailer = require('nodemailer');
+const mjml2html = require('mjml')
+const nodemailer = require('nodemailer')
 const htmlToText = require('html-to-text')
 const { MAIL_HOST,MAIL_PORT, MAIL_PASS, MAIL_USER, MAIL_FROM } = require('../config/keys')
 

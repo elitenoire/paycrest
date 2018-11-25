@@ -40,7 +40,7 @@ const loginChecker = new LocalStrategy(loginOpts, async (email, password, done) 
         //     return done(null, false, {
         //         type: 'NOT_VERIFIED',
         //         message: 'Your account has not been verified'
-        //     })  
+        //     })
         // }
         return done(null, user)
     }
