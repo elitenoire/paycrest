@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Auth, { AuthProvider } from './context/Auth'
 import SecureRoute from './components/SecureRoute'
 import NavigationBar from './components/NavigationBar'

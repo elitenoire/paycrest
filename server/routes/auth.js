@@ -7,9 +7,9 @@ authRouter.post('/signup', Authentication.signup)
 // login route handler
 authRouter.post('/login', verifyCreds, Authentication.login)
 // login - send OTP
-authRouter.post('/sendOtp', Authentication.sendOtp)
+authRouter.post('/send-otp', Authentication.sendOtp)
 // login - verify OTP
-authRouter.post('/verifyOtp', Authentication.verifyOtp, Authentication.login)
+authRouter.post('/verify-otp', Authentication.verifyOtp, Authentication.login)
 
 
 

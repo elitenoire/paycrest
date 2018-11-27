@@ -62,6 +62,3 @@ const User = mongoose.model('users', userSchema)
 
 // Model export
 module.exports = User
-
-
-//mongoose.model('users', userSchema)
