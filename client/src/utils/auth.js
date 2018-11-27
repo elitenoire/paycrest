@@ -9,26 +9,21 @@ const auth = {}
 
 // client-to-server async helpers
 const postHelper = async (payload, route) => {
-    console.log('Making post api request..')
     try{
-        console.log('Send to ', route, payload)
         const response = await client.post(route, payload)
         return { response }
     }
     catch(err){
         if(err.response){
-            console.log('In client', err.response)
             return {error : err.response.data}
         }
-        console.log('In client , err is', err)
-
-        return {error : 'Check network connection or please refresh'}
+        return {error : { msg: 'Check network connection or please refresh'}}
     }
 }
 auth.login = payload => postHelper(payload,'/login')
 auth.signup = payload => postHelper(payload,'/signup')
-auth.sendOtp = payload => postHelper(payload,'/sendOtp')
-auth.verifyOtp = payload => postHelper(payload,'/verifyOtp')
+auth.sendOtp = payload => postHelper(payload,'/send-otp')
+auth.verifyOtp = payload => postHelper(payload,'/verify-otp')
 
 
 // client-localStorage helpers

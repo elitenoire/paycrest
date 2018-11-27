@@ -4,8 +4,7 @@ import Toggle from "react-toggle-component"
 import 'react-toggle-component/styles.css'
 
 
-const OtpLogin = ({ showVerify, onInputChange, loginOtp, onSubmit }) => {
-    showVerify = !showVerify
+const OtpLogin = ({ busy, error, showVerify, onInputChange, loginOtp, onSubmit, onCancel }) => {
     return (
         <form id="loginOtp" onSubmit={onSubmit}>
             <div class="field">
@@ -16,16 +15,34 @@ const OtpLogin = ({ showVerify, onInputChange, loginOtp, onSubmit }) => {
                         </a>
                     </p>
                     <p class="control is-expanded">
-                        <input onChange={onInputChange} value={loginOtp.phone} name="phone" disabled={showVerify} value="5" class="input is-rounded" type="tel" placeholder="Eg: 08043492736" required/>
+                        <input
+                            onChange={onInputChange}
+                            value={loginOtp.phone}
+                            name="phone"
+                            class="input is-rounded"
+                            type="tel"
+                            placeholder="080XXXXXXXX"
+                            disabled={showVerify}
+                            required
+                        />
                     </p>
                 </div>
-                <p class="help has-text-primary">{`A code ${showVerify? 'has been':'will be'} sent to this number.`}</p>
+                {!error && <p class="help has-text-primary">{`A code ${showVerify? 'has been':'will be'} sent to this number.`}</p>}
+                {error && <p class="help has-text-danger has-mb-2">{error}</p>}
             </div>
 
             {showVerify && (
                 <div class="field">
                     <p class="control has-icons-left">
-                        <input onChange={onInputChange} value={loginOtp.otp} name="otp" class="input is-rounded" type="text" placeholder="Code" required/>
+                        <input
+                            onChange={onInputChange}
+                            value={loginOtp.otp}
+                            name="otp"
+                            class="input is-rounded"
+                            type="text"
+                            placeholder="Code"
+                            required
+                        />
                         <span class="icon is-small is-left">
                             <i class="fas fa-lock"></i>
                         </span>
@@ -34,7 +51,7 @@ const OtpLogin = ({ showVerify, onInputChange, loginOtp, onSubmit }) => {
             )}
             <div class="field">
                 <div class="control">
-                    <button class="button is-fullwidth is-primary is-rounded has-depth">
+                    <button class={`button is-fullwidth is-primary is-rounded has-depth ${busy?'is-loading':''}`}>
                     {showVerify ? 'Verify' : 'Send'}
                     </button>
                 </div>
@@ -42,7 +59,11 @@ const OtpLogin = ({ showVerify, onInputChange, loginOtp, onSubmit }) => {
             {showVerify && (
                 <div class="field">
                     <div class="control">
-                        <button class="button is-fullwidth is-primary is-rounded has-depth">
+                        <button
+                            type="button"
+                            class="button is-fullwidth is-primary is-rounded has-depth"
+                            onClick={onCancel}
+                        >
                         Cancel
                         </button>
                     </div>
@@ -52,12 +73,21 @@ const OtpLogin = ({ showVerify, onInputChange, loginOtp, onSubmit }) => {
     )
 }
 
-const PasswordLogin = ({error, onInputChange, login, onSubmit }) => {
+const PasswordLogin = ({busy, error, onInputChange, login, onSubmit }) => {
     return (
         <form id="login" onSubmit={onSubmit}>
             <div class="field">
                 <p class="control has-icons-left">
-                    <input onChange={onInputChange} value={login.email} name="email" class="input is-rounded" type="email" placeholder="Email" required/>
+                    <input
+                        onChange={onInputChange}
+                        value={login.email}
+                        name="email"
+                        class="input is-rounded"
+                        type="email"
+                        placeholder="Email"
+                        autoComplete="username"
+                        required
+                    />
                     <span class="icon is-small is-left">
                         <i class="fas fa-envelope"></i>
                     </span>
@@ -65,7 +95,16 @@ const PasswordLogin = ({error, onInputChange, login, onSubmit }) => {
             </div>
             <div class="field">
                 <p class="control  has-icons-left">
-                    <input onChange={onInputChange} value={login.password} name="password" class="input is-rounded" type="password" placeholder="Password" required/>
+                    <input
+                        onChange={onInputChange}
+                        value={login.password}
+                        name="password"
+                        class="input is-rounded"
+                        type="password"
+                        placeholder="Password"
+                        autoComplete="current-password"
+                        required
+                    />
                     <span class="icon is-small is-left">
                         <i class="fas fa-lock"></i>
                     </span>
@@ -74,7 +113,7 @@ const PasswordLogin = ({error, onInputChange, login, onSubmit }) => {
             {error && <p class="help has-text-danger has-mb-2">{error}</p>}
             <div class="field">
                 <div class="control">
-                    <button class="button is-fullwidth is-primary is-rounded has-depth">
+                    <button class={`button is-fullwidth is-primary is-rounded has-depth ${busy?'is-loading':''}`}>
                     Login
                     </button>
                 </div>
@@ -103,13 +142,13 @@ const LoginPanel = ({viaOtp, onToggle}) => {
     )
 }
 
-const LoginForm = ({error, swapForm, onSwap, viaOtp, login, loginOtp, onInputChange, showVerify, onToggle, onSubmit}) => {
+const LoginForm = ({swapForm, onSwap, viaOtp, login, loginOtp, showVerify, onToggle, onCancel, ...rest}) => {
     return (
         <FormLayout swapForm={swapForm} onSwap={onSwap}>
             <LoginPanel viaOtp={viaOtp} onToggle={onToggle}/>
             {viaOtp
-                ? <OtpLogin error={error} loginOtp={loginOtp} showVerify={showVerify} onInputChange={onInputChange} onSubmit={onSubmit}/>
-                : <PasswordLogin error={error} login={login} onInputChange={onInputChange} onSubmit={onSubmit}/>
+                ? <OtpLogin loginOtp={loginOtp} showVerify={showVerify} onCancel={onCancel} {...rest}/>
+                : <PasswordLogin login={login} {...rest} />
             }
         </FormLayout>
     )
