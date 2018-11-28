@@ -5,7 +5,7 @@ const NavigationBar = ({ children }) => (
     <nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
         <div class="container">
             <div class="navbar-brand">
-                <Link className="navbar-item title is-marginless" to="/">IRIS
+                <Link className="navbar-item title is-marginless" to="/">PAYCREST
                 </Link>
 
                 <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navMenu">

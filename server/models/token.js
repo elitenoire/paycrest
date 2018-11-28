@@ -29,7 +29,7 @@ tokenSchema.methods.sendVerificationToken = async function(user, baseUrl) {
 
         const mailOptions = {
             to: user.email,
-            subject: 'Confirm your Iris Messenger account with us',
+            subject: 'Confirm your Paycrest account with us',
             data: {
                 name: user.firstName || 'Newbie',
                 url: `${baseUrl}/confirm/${token.token}`
