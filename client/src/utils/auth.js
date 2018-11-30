@@ -51,7 +51,7 @@ auth.deauthenticateUser = (key = 'token') => {
 
 // Decode token
 auth.decodeToken = (key = 'token') => {
-    return jwt.decode(auth.getTokenFromStorage(key)).payload || null
+    return jwt.decode(auth.getTokenFromStorage(key)) || null
 }
 
 export { auth }

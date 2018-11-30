@@ -2,17 +2,14 @@ import React, { createContext, Component } from 'react'
 import { auth } from '../utils'
 
 // Initialize with persisted auth state from local storage
-const AuthContext = createContext({
-    // user: auth.decodeToken() || {},
-    // isAuth: auth.isUserAuthenticated()
-})
+const AuthContext = createContext({})
 
 export default AuthContext.Consumer
 
 class AuthProvider extends Component {
     state = {
-        user: {},
-        isAuth: false
+        user: auth.decodeToken() || {},
+        isAuth: auth.isUserAuthenticated()
     }
 
     constructor() {
