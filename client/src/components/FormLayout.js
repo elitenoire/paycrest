@@ -17,8 +17,8 @@ const FormLayout = ({children, swapForm, onSwap}) => {
     return (
         <section class="columns is-centered is-clipped">
             {/* <div class="columns is-centered"> */}
-                <div class="column is-half-tablet is-one-third-desktop has-text-centered has-mx-5">
-                    <div class="container is-fluid">
+                <div class="column is-half-tablet is-one-third-widescreen has-text-centered has-mx-5">
+                    <div class="container is-fluid has-mt-5">
                         <h3 class="title is-4 is-marginless has-text-grey">{config[swapForm].title}</h3>
                         <div class="level is-marginless">
                             <div class="level-item">

@@ -1,7 +1,5 @@
 import React from 'react'
 import FormLayout from './FormLayout'
-import Toggle from "react-toggle-component"
-import 'react-toggle-component/styles.css'
 
 
 const OtpLogin = ({ busy, error, showVerify, onInputChange, loginOtp, onSubmit, onCancel }) => {
@@ -94,7 +92,7 @@ const PasswordLogin = ({busy, error, onInputChange, login, onSubmit }) => {
                 </p>
             </div>
             <div class="field">
-                <p class="control  has-icons-left">
+                <p class="control has-icons-left">
                     <input
                         onChange={onInputChange}
                         value={login.password}
@@ -135,7 +133,16 @@ const LoginPanel = ({viaOtp, onToggle}) => {
             </div>
             <div class="level-right">
                 <div class="level item">
-                    <Toggle className="toggle-switch" checked={viaOtp} onToggle={onToggle}/>
+                    <div class="field">
+                        <input
+                            type="checkbox"
+                            id="login-switch"
+                            class="switch is-rounded is-outlined"
+                            checked={viaOtp}
+                            onChange={onToggle}
+                        />
+                        <label htmlFor="login-switch" />
+                    </div>
                 </div>
             </div>
         </div>

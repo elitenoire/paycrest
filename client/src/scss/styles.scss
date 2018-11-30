@@ -18,14 +18,18 @@ $beige-lighter: #f8f6f8;
 $primary: $purple;
 $link: $accent-light;
 $info: $accent;
+$tablet: 760px !default;
+
 
 // $widescreen-enabled: false;
 // $fullhd-enabled: false;
 
 // Update some of Bulma's component variables
 $body-background-color: $beige-lighter;
+$navbar-breakpoint: $tablet;
 // $control-border-width: 2px;
 // $input-border-color: transparent;
 // $input-shadow: none;
 
 @import "../../node_modules/bulma/bulma.sass";
+@import "../../node_modules/bulma-switch/dist/css/bulma-switch.sass";

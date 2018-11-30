@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import Auth, { AuthProvider } from './context/Auth'
+import { AuthProvider } from './context/Auth'
 import SecureRoute from './components/SecureRoute'
 import NavigationBar from './components/NavigationBar'
 import NavigationMenu from './components/NavigationMenu'
@@ -13,13 +13,13 @@ const App = () => (
     <AuthProvider>
       <Fragment>
         <NavigationBar>
-          <Auth>{NavigationMenu}</Auth>
+          <NavigationMenu />
         </NavigationBar>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <SecureRoute path="/get-started" redirect="/app" component={Home}/>
-          <SecureRoute path ="/app" redirect="/get-started" component={Dashboard} />
-        </Switch>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <SecureRoute path="/get-started" redirect="/app" component={Home}/>
+            <SecureRoute path ="/app" redirect="/get-started" component={Dashboard} />
+          </Switch>
       </Fragment>
     </AuthProvider>
   </Router>
