@@ -40,10 +40,9 @@ app.use('/api/airtime', airtimeRouter)
 if (process.env.NODE_ENV === 'production') {
     //serve index.html for unrecognized route -> react-router
     const path = require('path')
-    app.get('*' , (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    app.get('/*' , (req, res) => {
+        res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html'))
     })
 }
-
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
