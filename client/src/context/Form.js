@@ -24,7 +24,8 @@ const formDefaults = {
     loginOtp: {
         phone: '',
         otp: '',
-        requestId: ''
+        requestId: '',
+        code: ''
     }
 }
 
@@ -79,7 +80,7 @@ class FormProvider extends Component {
         }
         //send data to backend
         // err is undefined for success and an object for error
-        const { error: err, requestId: RID } = await this.props[formId](data, action) || {}
+        const { error: err, requestId: RID , code } = await this.props[formId](data, action) || {}
         if(err) return this.setState({ busy: false, error: err.error || err.msg })
 
         // No error from server -> login/signup okay
@@ -89,7 +90,7 @@ class FormProvider extends Component {
                 busy: false,
                 error: '',
                 showVerify: true,
-                loginOtp :{...this.state.loginOtp, requestId: RID}
+                loginOtp :{...this.state.loginOtp, requestId: RID, code}
             })
         }
 

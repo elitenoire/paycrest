@@ -1,73 +1,83 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import FormLayout from './FormLayout'
 
 
 const OtpLogin = ({ busy, error, showVerify, onInputChange, loginOtp, onSubmit, onCancel }) => {
     return (
-        <form id="loginOtp" onSubmit={onSubmit}>
-            <div class="field">
-                <div class="field has-addons">
-                    <p class="control">
-                        <a class="button is-null is-rounded">
-                            +234
-                        </a>
-                    </p>
-                    <p class="control is-expanded">
-                        <input
-                            onChange={onInputChange}
-                            value={loginOtp.phone}
-                            name="phone"
-                            class="input is-rounded"
-                            type="tel"
-                            placeholder="080XXXXXXXX"
-                            disabled={showVerify}
-                            required
-                        />
-                    </p>
-                </div>
-                {!error && <p class="help has-text-primary">{`A code ${showVerify? 'has been':'will be'} sent to this number.`}</p>}
-                {error && <p class="help has-text-danger has-mb-2">{error}</p>}
-            </div>
-
-            {showVerify && (
+        <Fragment>
+            <form id="loginOtp" onSubmit={onSubmit}>
                 <div class="field">
-                    <p class="control has-icons-left">
-                        <input
-                            onChange={onInputChange}
-                            value={loginOtp.otp}
-                            name="otp"
-                            class="input is-rounded"
-                            type="text"
-                            placeholder="Code"
-                            required
-                        />
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-lock"></i>
-                        </span>
-                    </p>
+                    <div class="field has-addons">
+                        <p class="control">
+                            <a class="button is-null is-rounded">
+                                +234
+                            </a>
+                        </p>
+                        <p class="control is-expanded">
+                            <input
+                                onChange={onInputChange}
+                                value={loginOtp.phone}
+                                name="phone"
+                                class="input is-rounded"
+                                type="tel"
+                                placeholder="080XXXXXXXX"
+                                disabled={showVerify}
+                                required
+                            />
+                        </p>
+                    </div>
+                    {!error && <p class="help has-text-primary">{`A code ${showVerify? 'has been':'will be'} sent to this number.`}</p>}
+                    {error && <p class="help has-text-danger has-mb-2">{error}</p>}
                 </div>
-            )}
-            <div class="field">
-                <div class="control">
-                    <button class={`button is-fullwidth is-primary is-rounded has-depth ${busy?'is-loading':''}`}>
-                    {showVerify ? 'Verify' : 'Send'}
-                    </button>
-                </div>
-            </div>
-            {showVerify && (
+
+                {showVerify && (
+                    <div class="field">
+                        <p class="control has-icons-left">
+                            <input
+                                onChange={onInputChange}
+                                value={loginOtp.otp}
+                                name="otp"
+                                class="input is-rounded"
+                                type="text"
+                                placeholder="Code"
+                                required
+                            />
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                        </p>
+                    </div>
+                )}
                 <div class="field">
                     <div class="control">
-                        <button
-                            type="button"
-                            class="button is-fullwidth is-primary is-rounded has-depth"
-                            onClick={onCancel}
-                        >
-                        Cancel
+                        <button class={`button is-fullwidth is-primary is-rounded has-depth ${busy?'is-loading':''}`}>
+                        {showVerify ? 'Verify' : 'Send'}
                         </button>
                     </div>
                 </div>
-            )}
-        </form>
+                {showVerify && (
+                    <div class="field">
+                        <div class="control">
+                            <button
+                                type="button"
+                                class="button is-fullwidth is-primary is-rounded has-depth"
+                                onClick={onCancel}
+                            >
+                            Cancel
+                            </button>
+                        </div>
+                    </div>
+                )}
+            </form>
+        {loginOtp.code && (
+            <article class="message is-small is-warning  has-mt-5">
+                <div class="message-body">
+                    <p>Your code is <strong>{loginOtp.code}</strong>.</p>
+                    <p>The sms service is temporarily disabled.</p>
+                </div>
+            </article>
+        )}
+        </Fragment>
     )
 }
 

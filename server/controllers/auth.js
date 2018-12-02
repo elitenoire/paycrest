@@ -26,7 +26,9 @@ exports.signup = async (req, res, next) => {
         // send signup verification email
         const BASE_URL = req.protocol + "://" + req.get('host')
         const token = new Token({_userId: newUser._id })
-        await token.sendVerificationToken(newUser, BASE_URL)
+        // Temporarily disable verification email
+        // await token.sendVerificationToken(newUser, BASE_URL)
+
         // on successful email delivery
         return res.status(200).json({
             token: generateToken(newUser),
@@ -72,12 +74,14 @@ exports.sendOtp = async (req, res, next) => {
             const code = totp.now()
             const to = '+234' + phone.substring(1)
             const message = `Your OTP is ${code}.`
-            const response = await sms.send({ to, message, enque: true })
+            // Temporarily disable SMS feature
+            // const response = await sms.send({ to, message, enque: true })
+
             const requestId = uniqid()
             user.secret = otpSecret
             user.requestId = requestId
             const s = await user.save()
-            return res.status(200).json({ msg: 'Your OTP has been sent', status: 'ok', requestId })
+            return res.status(200).json({ msg: 'Your OTP has been sent', status: 'ok', requestId, code })
         }
         else { return res.status(422).json({ msg: 'Unregistered phone number' })}
     }

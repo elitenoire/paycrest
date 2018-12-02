@@ -53,12 +53,12 @@ class AuthProvider extends Component {
         const { response, error } = await auth[action](info)
 
         if(response){
-            const { token, name, requestId } = response.data
+            const { token, name, requestId, code } = response.data
             if(token){
                 auth.authenticateUser(token)
                 return this.setState({isAuth: true, user: { name }})
             }
-            return  { requestId }
+            return  { requestId, code }
         }
         return { error }
     }

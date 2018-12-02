@@ -1,25 +1,29 @@
 {
   "name": "paycrest",
   "version": "1.0.0",
-  "description": "messaging for the modern era",
-  "main": "index.js",
+  "description": "mobile money solution",
+  "main": "server/server.js",
+  "engines": {
+    "node": "10.x",
+    "npm": "6.4.1"
+  },
   "scripts": {
     "start": "node server/server.js",
     "server": "nodemon server/server.js",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/elitenoire/DevFest-Abuja-Code-Challenge-2018.git"
+    "url": "git+https://github.com/elitenoire/paycrest.git"
   },
   "author": "elitenoire",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/elitenoire/DevFest-Abuja-Code-Challenge-2018/issues"
+    "url": "https://github.com/elitenoire/paycrest/issues"
   },
-  "homepage": "https://github.com/elitenoire/DevFest-Abuja-Code-Challenge-2018#readme",
+  "homepage": "https://github.com/elitenoire/paycrest#readme",
   "dependencies": {
     "africastalking": "^0.4.0",
     "bcryptjs": "^2.4.3",
